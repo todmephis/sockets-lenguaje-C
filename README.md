@@ -23,7 +23,7 @@ En algunos programas requieren de MySQL.
 (Ver el README de cada carpeta para más información).
 
 
-## ¿Preguntas?
+### ¿Preguntas?
 
 Puedes hacerme llegar cualquiér opinión o duda que tengas. Dejaré mi contacto :)
 

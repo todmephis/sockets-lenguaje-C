@@ -1,6 +1,6 @@
 # Como abrir un socket crudo (raw) con lenguaje C
 
-## Información
+### Información
 
 Este programa es un ejemplo para abrir un socket utilizando lenguaje C.
 
@@ -23,29 +23,28 @@ Este programa no requiere de recursos extras.
 ## Compilación
 
 ```
-gcc C/abrirsocket.c -o abrirsocket
+gcc C/abrirsocket.c -o OUT/abrirsocket
 ```
 **Ejecutar como usuario root (sudo).
 
-## ¿Preguntas?
+### ¿Preguntas?
 
 Puedes hacerme llegar cualquiér opinión o duda que tengas. Dejaré mi contacto :)
 
 ## Autor
 
-* **Iván Sánchez**
+**Iván Sánchez**
 
 *Contacto*
-```
+
 [Twitter](https://twitter.com/todmephis) 
-[Telegram]@todmephis
+[Telegram](http://telegram.me/todmephis)
 [Facebook](https://www.facebook.com/0xSCRIPTKIDDIE1)
-```
+
 
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details
-
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details
 
 by todmephis
