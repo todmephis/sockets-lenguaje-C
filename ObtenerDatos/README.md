@@ -1,25 +1,35 @@
-# Como abrir un socket crudo (raw) con lenguaje C
+# Obtener los datos de una interfaz de red
 
 ### Información
 
-Este programa es un ejemplo para abrir un socket utilizando lenguaje C.
+En este programa obtendremos los datos de una interfaz de red ingresada por el usuario desde stdin.
 
-### man pages recomendados para leer
+Los datos a obtener son:
 
-* man socket
-* man 7 packet
-* man htons
-* man close
-
+```
+* Índice de la interfaz de red seleccionada.
+* Dirección física (MAC Address).
+* Dirección lógica (IP Address).
+* Dirección de broadcast.
+* Máscara de red.
+```
 
 ### Requerimentos
 
+**Saber abrir un socket crudo**.
+
 Este programa no requiere de recursos extras.
+
+### man pages 
+```
+* man netdevice
+* man ioctl
+```
 
 ## Compilación
 
 ```
-gcc C/abrirsocket.c -o OUT/abrirsocket
+gcc C/obtenerdatos.c -o OUT/datos
 ```
 **Ejecutar como usuario root (sudo).
 
