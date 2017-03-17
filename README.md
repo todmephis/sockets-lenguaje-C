@@ -2,7 +2,7 @@
 
 Colección de programas para trabjar con sockets crudos (raw) en lenguaje C enfocado a entornos de red.
 
-## ¿Qué es un socket?
+### ¿Qué es un socket?
 
 Los sockets de Berkeley junto con las TLI de System V, son las APIs (Application Programming Interface) de comunicaciones más comunes en un sistema UNIX.
 
@@ -29,12 +29,12 @@ Puedes hacerme llegar cualquiér opinión o duda que tengas. Dejaré mi contacto
 
 ## Autor
 
-* **Iván Sánchez**
+**Iván Sánchez**
 
 *Contacto*
 
 [Twitter](https://twitter.com/todmephis) 
-[Telegram]@todmephis
+[Telegram](http://telegram.me/todmephis)
 [Facebook](https://www.facebook.com/0xSCRIPTKIDDIE1)
 
 
