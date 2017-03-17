@@ -13,15 +13,22 @@ Fuente: Protocolos de INTERNET diseño e implementación en sistemas UNIX | ISBN
 ### ¿Qué necesito?
 
 ```
-* Una distribución GNU/Linux de tu agrado.
-* Compilador para lenguaje C. (incluido en la mayoría de las distribuciones más conocidas).
-* Editor de texto (vi, nano, gedit, sublimetext... etc).
-* MySQL Server.
-* Bibliotecas de desarrollo de MySQL-C.
+*Una distribución GNU/Linux de tu agrado.
+*Compilador para lenguaje C. (incluido en la mayoría de las distribuciones más conocidas).
+*Editor de texto (vi, nano, gedit, sublimetext... etc).
+*MySQL Server.
+*Bibliotecas de desarrollo de MySQL-C.
 ```
 En algunos programas requieren de MySQL. 
 (Ver el README de cada carpeta para más información).
 
+### Órden de los ejercicios
+
+```
+*Abrir Socket
+*Obtener Datos
+*Enviar trama
+```
 
 ### ¿Preguntas?
 
