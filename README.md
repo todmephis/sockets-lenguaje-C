@@ -32,16 +32,15 @@ Puedes hacerme llegar cualquiér opinión o duda que tengas. Dejaré mi contacto
 * **Iván Sánchez**
 
 *Contacto*
-```
+
 [Twitter](https://twitter.com/todmephis) 
 [Telegram]@todmephis
 [Facebook](https://www.facebook.com/0xSCRIPTKIDDIE1)
-```
 
 
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details
 
 by todmephis
