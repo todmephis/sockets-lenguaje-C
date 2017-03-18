@@ -169,13 +169,15 @@ unsigned char mi_trama_para_enviar[1514];
 unsigned char mensaje_para_la_trama[10]={'S','o','y', ' ', 'I', 'v', 'a', 'n'};
 unsigned char MACbroadcast[6]={0xff,0xff,0xff,0xff,0xff,0xff};//MAC DE BROADCAST ff:ff:ff:ff:ff:ff
 unsigned char ethtype[2]={0xae,0xae};//Ethertype personalizado para identificar el paquete
+unsigned char cMAC[6]={0xaa,0xaa,0xaa,0xaa,0xaa,0xaa};
 
 ds=abrirSocketRaw();
 indice=obtenerDatos(ds, ptrInterfaz, ownMAC, ownIP, ownBroadcast, ownNetMask);
 //Estructuramos la trama con los datos deseados
 memset(mi_trama_para_enviar, 0x00, sizeof(mi_trama_para_enviar)/sizeof(mi_trama_para_enviar[0]));
 memcpy(mi_trama_para_enviar+0, MACbroadcast, 6);//Del valor 0 hasta el 5 son los 6 bytes de la dirección física destino.
-memcpy(mi_trama_para_enviar+6, ownMAC, 6);//Del 6 al 11 son los 6 bytes de mi dirección MAC.
+//memcpy(mi_trama_para_enviar+6, ownMAC, 6);//Del 6 al 11 son los 6 bytes de mi dirección MAC.
+//memcpy(mi_trama_para_enviar+6,cMAC,6);
 memcpy(mi_trama_para_enviar+12, ethtype, 2);//Del 12 al 14 son 2 bytes de ethertype.
 memcpy(mi_trama_para_enviar+14, mensaje_para_la_trama, strlen(mensaje_para_la_trama));//Mensaje para enviar en la trama.
 printf("Trama a enviar:");
