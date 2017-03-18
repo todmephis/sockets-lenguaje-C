@@ -177,7 +177,7 @@ indice=obtenerDatos(ds, ptrInterfaz, ownMAC, ownIP, ownBroadcast, ownNetMask);
 memset(mi_trama_para_enviar, 0x00, sizeof(mi_trama_para_enviar)/sizeof(mi_trama_para_enviar[0]));
 memcpy(mi_trama_para_enviar+0, MACbroadcast, 6);//Del valor 0 hasta el 5 son los 6 bytes de la dirección física destino.
 //memcpy(mi_trama_para_enviar+6, ownMAC, 6);//Del 6 al 11 son los 6 bytes de mi dirección MAC.
-//memcpy(mi_trama_para_enviar+6,cMAC,6);
+memcpy(mi_trama_para_enviar+6,cMAC,6);//AÑADE UNA MAC INVENTADA A LA TRAMA EN LUGAR DE LA ORIGINAL.
 memcpy(mi_trama_para_enviar+12, ethtype, 2);//Del 12 al 14 son 2 bytes de ethertype.
 memcpy(mi_trama_para_enviar+14, mensaje_para_la_trama, strlen(mensaje_para_la_trama));//Mensaje para enviar en la trama.
 printf("Trama a enviar:");
