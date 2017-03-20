@@ -30,6 +30,10 @@ int obtenerDatos(int, struct ifreq *, unsigned char *, unsigned char *, unsigned
 int >> tamaño de la trama a imprimir. */
 void imprimeTrama (unsigned char *, int);
 
+/*int >> Descriptor del socket abierto.
+unsigned char * >> Apuntador para almacenar la trama que recibimos.*/
+void recibeTrama(int, unsigned char *);
+
 					/*FUNCIONES*/
 
 int 
