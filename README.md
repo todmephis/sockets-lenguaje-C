@@ -27,7 +27,8 @@ En algunos programas requieren de MySQL.
 ```
 *Abrir Socket
 *Obtener Datos
-*Enviar trama
+*Enviar Trama
+*Recibir Trama
 ```
 
 ### ¿Preguntas?
