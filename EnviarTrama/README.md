@@ -25,7 +25,7 @@ gcc C/enviartrama.c -o OUT/enviar
 **Ejecutar como usuario root (sudo).
 
 ### Comprobación
-Para comprovar el envío de del paquete podemos utilizar el sniffer de red "Wireshark".
+Para comprobar el envío de del paquete podemos utilizar el sniffer de red "Wireshark".
 El resultado es algo como lo siguiente:
 ![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/EnviarTrama/img/enviartrama2.png "TRAMA RECIBIDA")
 

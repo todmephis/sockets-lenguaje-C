@@ -26,7 +26,7 @@ gcc C/recibirtrama.c -o OUT/recibe
 **Ejecutar como usuario root (sudo).
 
 ### Comprobación
-Para comprovar el envío de del paquete podemos utilizar el sniffer de red "Wireshark".
+Para comprobar el envío de del paquete podemos utilizar el sniffer de red "Wireshark".
 El resultado es algo como lo siguiente:
 ![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/RecibirTrama/caps/recibirtrama.png "Trama enviada y recibida por el programa recien hecho y comprobado el paquete en Wireshark.")
 
