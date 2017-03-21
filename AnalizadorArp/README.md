@@ -19,10 +19,10 @@ O puedes bajarlos directamente del [sitio web](https://dev.mysql.com/downloads/c
 
 ### man pages 
 ```
-* man termios
-* man gettimeofday
-* [MySQL functions](https://dev.mysql.com/doc/refman/5.7/en/c-api-functions.html)
+*man termios
+*man gettimeofday
 ```
+[MySQL functions](https://dev.mysql.com/doc/refman/5.7/en/c-api-functions.html)
 
 ## Compilación
 
@@ -47,7 +47,7 @@ El resultado es algo como lo siguiente:
 ```
 sudo apt-get install wireshark
 ```
-Ejecutar como root (sudo).
+**Ejecutar como root (sudo).
 
 ### ¿Preguntas?
 
