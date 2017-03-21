@@ -29,6 +29,8 @@ En algunos programas requieren de MySQL.
 *Obtener Datos
 *Enviar Trama
 *Recibir Trama
+*Enviar Trama (petición) ARP
+*Analizador ARP
 ```
 
 ### ¿Preguntas?
