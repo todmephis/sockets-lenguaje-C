@@ -65,19 +65,26 @@ gcc C/ARPdefender.c -o OUT/servidor -I /usr/include/mysql/ -lmysqlclient
 
 Ingresé de forma manual una dirección IP y un MAC asociadas. (192.168.1.250 y aa:aa:aa:aa:aa:aa).
 ![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def1.png)
+
 La configuración actual del host con Windows es la siguiente (su dirección MAC e IP están registradas en la BDD).
 ![imagen 2](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def2.png)
+
 Solicitaré la IP 192.168.1.250 que originalmente pertenece a aa:aa:aa:aa:aa:aa
 ![imagen 3](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def3.png)
+
 Acepto los cambios y la respuesta en el server es la siguiente
 ![imagen 4](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def4.png)
+
 Los paquetes en Wireshark
 ![imagen 5](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def5.png)
+
 Mientras tanto en el host con Windows, el ping a 8.8.8.8 ya no responde (no tiene Internet) y nos notifica un conflicto con las direcciones IP.
 ![imagen 6](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def6.png)
 ![imagen 7](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def7.png)
+
 Regreso a su configuración real y la respuesta en el server es la siguiente
 ![imagen 8](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def8.png)
+
 Mientras que en mi host el ping ya responde
 ![imagen 9](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ARPdefender/caps/def9.png)
 
