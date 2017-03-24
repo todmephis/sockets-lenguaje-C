@@ -96,8 +96,8 @@ sudo apt-get install wireshark
 **Ejecutar como root (sudo).
 
 ## To do list
-- [x] Implementar un log.
-- [x] Manejar una dirección IP asociada a más de una dirección MAC.
+- [ ] Implementar un log.
+- [ ] Manejar una dirección IP asociada a más de una dirección MAC.
 
 ### ¿Preguntas?
 
