@@ -346,7 +346,6 @@ estructuraTrama (unsigned char *trama_envio, unsigned char *MACdestino,
      unsigned char *SHA, unsigned char *SPA,
      unsigned char *THA, unsigned char *TPA)
 {
-  unsigned char name[5]={'E','L','M','N'};
   memset (trama_envio, 0x00, TRAMA_LEN);
   memcpy (trama_envio + 0, MACdestino, 6);  //Direccion Destino (6 bytes)
   memcpy (trama_envio + 6, MACOrigen, 6); //Direccion Origen (6 bytes)
@@ -359,7 +358,6 @@ estructuraTrama (unsigned char *trama_envio, unsigned char *MACdestino,
   memcpy (trama_envio + 28, SPA, 4); //SPA
   memcpy (trama_envio + 32, THA, 6); //THA
   memcpy (trama_envio + 38, TPA, 4); //TPA
-  memcpy (trama_envio + 44, name, 5);
 }
 
 void
