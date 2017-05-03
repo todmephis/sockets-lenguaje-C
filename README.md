@@ -31,6 +31,9 @@ En algunos programas requieren de MySQL.
 *Recibir Trama
 *Enviar Trama (petición) ARP
 *Analizador ARP
+*ARP Defender
+*Ping
+*Tracert
 ```
 
 ### ¿Preguntas?
