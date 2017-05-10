@@ -52,10 +52,10 @@ make traceroute
 **Ejecutar como usuario root (sudo).
 
 ### Comprobación
-![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Ping/caps/traceroute1.png "Traceroute google.com")
-![imagen 2](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Ping/caps/traceroute2.png "Paquetes en Wireshark")
-![imagen 3](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Ping/caps/traceroute3.png "Traceroute 192.168.200.1 (Gateway)")
-![imagen 4](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Ping/caps/traceroute4.png "Paquetes en Wireshark")
+![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Traceroute/caps/traceroute1.png "Traceroute google.com")
+![imagen 2](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Traceroute/caps/traceroute2.png "Paquetes en Wireshark")
+![imagen 3](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Traceroute/caps/traceroute3.png "Traceroute 192.168.200.1 (Gateway)")
+![imagen 4](https://github.com/todmephis/sockets-lenguaje-C/blob/master/Traceroute/caps/traceroute4.png "Paquetes en Wireshark")
 
 ### Instalación wireshark
 
