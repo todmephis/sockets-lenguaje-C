@@ -33,7 +33,7 @@ En algunos programas requieren de MySQL.
 *Analizador ARP
 *ARP Defender
 *Ping
-*Tracert
+*Traceroute
 ```
 
 ### ¿Preguntas?
