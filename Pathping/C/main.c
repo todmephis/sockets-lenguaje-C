@@ -29,13 +29,16 @@ int main(int argc , char **argv)
     IPstringToArray(ipstring_dest, IP_dest);
     usleep(200);
     if(hostIsInNetwork(ownIP, ownNetMask, IP_dest))
-        ARP(ownMAC, ownIP, IP_dest, targetHwAddr, &ifindex);
+        {
+            ARP(ownMAC, ownIP, IP_dest, targetHwAddr, &ifindex);
+
+        }
     else
-    {
-        unsigned char gatewayIP[4];
-        getGatewayAddr(gatewayIP);
-        ARP(ownMAC, ownIP, gatewayIP, targetHwAddr, &ifindex);
-    }
+        {
+            unsigned char gatewayIP[4];
+            getGatewayAddr(gatewayIP);
+            ARP(ownMAC, ownIP, gatewayIP, targetHwAddr, &ifindex);
+        }
     setEthHeader (trama_icmp, targetHwAddr, ownMAC, ETHTYPE_ICMP, (int)sizeof(trama_icmp));
     pID=getpid()*2;
     int sec = 0 ;
@@ -58,6 +61,8 @@ int main(int argc , char **argv)
             printsetup=1;
     }
     printf("Hop number: %d\n", ttl);
+    unsigned int defaultTTL=getTTL();
+    
 
     close(ds);
     return 0;   
