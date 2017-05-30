@@ -34,6 +34,8 @@ En algunos programas requieren de MySQL.
 *ARP Defender
 *Ping
 *Traceroute
+*Pathping
+*Escaner de puertos UDP
 ```
 
 ### ¿Preguntas?
