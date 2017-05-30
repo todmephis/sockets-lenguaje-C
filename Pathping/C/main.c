@@ -60,10 +60,25 @@ int main(int argc , char **argv)
         if(printsetup==4)
             printsetup=1;
     }
+<<<<<<< HEAD
     printf("Hop number: %d\n", ttl);
     unsigned int defaultTTL=getTTL();
+=======
+    int * perdidos;
+    if ((perdidos = (int*)calloc(ttl,sizeof(int))) == NULL){
+        perror("Error reservando memoria");
+        close(ds);
+        exit(EXIT_FAILURE);
+    }
+    int ttlMAX=ttl, x;
+    printf("Hop number: %d\n", ttlMAX);
+    for(ttl=1; ttl<=ttlMAX; ttl++){
+        
+    }
+>>>>>>> 0342f13f5e5f6e24aacbd7d9d97e70c702a54d40
     
 
+    cfree(perdidos);
     close(ds);
     return 0;   
 }
