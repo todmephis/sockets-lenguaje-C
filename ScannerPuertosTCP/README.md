@@ -60,8 +60,8 @@ make scannertcp
 **Ejecutar como usuario root (sudo).
 
 ### Comprobación
-![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ScannerPuertosUDP/caps/cap3.png )
-![imagen 2](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ScannerPuertosUDP/caps/cap4.png )
+![imagen 1](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ScannerPuertosTCP/caps/cap3.png )
+![imagen 2](https://github.com/todmephis/sockets-lenguaje-C/blob/master/ScannerPuertosTCP/caps/cap4.png )
 ### Instalación wireshark
 
 ```
