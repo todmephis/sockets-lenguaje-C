@@ -43,16 +43,16 @@ int main(int argc , char **argv)
     setEthHeader (trama_udp, targetHwAddr, ownMAC, ETHTYPE_IP, (int)sizeof(trama_udp));
     int puertodestino;
     for(puertodestino = 1; puertodestino<=100; puertodestino++){
-        usleep(500);
+        //usleep(500);
         setIPHeader(trama_udp, UDP_PROT, ownIP, IP_dest, puertodestino);
         setUDPHeader(trama_udp, htons(61000), htons(puertodestino), ownIP, IP_dest);
         enviarTrama (trama_udp, (int)sizeof(trama_udp), ds, ifindex);
         printf(BLU"  %d", puertodestino);
         printf(RESET"");
-        usleep(300);
+        //usleep(300);
         memset(&trama_rcv, 0, sizeof(trama_rcv));
         rcvICMP(trama_rcv, sizeof(trama_rcv), ds, ifindex, htons(61000), htons(puertodestino));
-        usleep(500);
+        //usleep(500);
     }
     printf("Bye\n");
     close(ds);

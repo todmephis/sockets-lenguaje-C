@@ -42,17 +42,17 @@ int main(int argc , char **argv)
         }
    // int puertodestino = 80 ;   
     for(int puertodestino = 1; puertodestino<=100; puertodestino++){
-        sleep(1);
+        //sleep(1);
         setEthHeader (trama_tcp, targetHwAddr, ownMAC, ETHTYPE_IP, (int)sizeof(trama_tcp));
         setIPHeader(trama_tcp, TCP_PROT, ownIP, IP_dest, puertodestino);
         setTCPHeader(trama_tcp, htons(61000), htons(puertodestino), ownIP, IP_dest);
         enviarTrama (trama_tcp, (int)sizeof(trama_tcp), ds, ifindex);
         printf(BLU"  %d", puertodestino);
         printf(RESET"");
-        usleep(300);
+        //usleep(300);
         memset(&trama_rcv, 0, sizeof(trama_rcv));
         rcvTCP(trama_rcv, sizeof(trama_rcv), ds, ifindex, htons(61000), htons(puertodestino));
-        sleep(1);
+        //sleep(1);
     }
     printf("Bye\n");
     close(ds);

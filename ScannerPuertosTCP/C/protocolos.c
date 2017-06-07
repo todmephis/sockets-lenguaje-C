@@ -535,7 +535,7 @@ int rcvTCP(unsigned char *trama_rcv, int trama_len, int ds, int index, unsigned 
     int bandera=0;
     long mtime =0, seconds, useconds;
     gettimeofday(&start, NULL);
-    while(mtime<2000){
+    while(mtime<500){
         recibeTrama(ds, trama_rcv, trama_len);
         if(filterTCPreply(trama_rcv, sourcePort, destPort)==0){
             printf(RED"\tCERRADO");
@@ -565,7 +565,7 @@ int rcvTCP(unsigned char *trama_rcv, int trama_len, int ds, int index, unsigned 
         }
     }
     if (bandera == 0){
-      printf(RED"\tSIN RESPUESTA");
+      //printf(RED"\tSIN RESPUESTA");
       printf(RESET"\n");
       return 0;
     }
