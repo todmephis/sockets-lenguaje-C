@@ -35,7 +35,9 @@ En algunos programas requieren de MySQL.
 *Ping
 *Traceroute
 *Pathping
+*Analizador de tramas LLC
 *Escaner de puertos UDP
+*Escaner de puertos TCP
 ```
 
 ### ¿Preguntas?
