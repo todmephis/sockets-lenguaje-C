@@ -159,7 +159,7 @@ unsigned char trama_recibir[1514];
 
 ds=abrirSocketRaw();
 indice=obtenerDatos(ds, ptrInterfaz, ownMAC, ownIP, ownBroadcast, ownNetMask);
-recibeTrama(ds, trama_recibir);
+recibeTrama(ds, trama_recibir);	
 close (ds);
 
 return 0;
