@@ -16,7 +16,7 @@ Fuente: Protocolos de INTERNET diseño e implementación en sistemas UNIX | ISBN
 *Una distribución GNU/Linux de tu agrado.
 *Compilador para lenguaje C. (incluido en la mayoría de las distribuciones más conocidas).
 *Editor de texto (vi, nano, gedit, sublimetext... etc).
-*MySQL Server.
+*MySQL.
 *Bibliotecas de desarrollo de MySQL-C.
 ```
 En algunos programas requieren de MySQL. 
