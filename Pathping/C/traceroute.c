@@ -1,4 +1,5 @@
 #include <traceroute.h>
+
 /*FUNCIONES*/
 void usage (char ** arguments){
     printf("Usage: %s [ip/hostname]\n", arguments[0]);
@@ -422,7 +423,7 @@ void rcvARP(unsigned char * trama_rcv, unsigned char * sourceHwAddr, unsigned ch
       exit(EXIT_FAILURE);
     }
 }
-int ICMP(unsigned char *trama_icmp, int trama_len, int protocolNumber, unsigned char * sourceIPAddr, unsigned char * targetIPAddr, int sqNumber, int pID, int ds, int index, unsigned int ttl, int printsetup){
+int ICMP(unsigned char *trama_icmp, int trama_len, int protocolNumber, unsigned char * sourceIPAddr, unsigned char * targetIPAddr, int sqNumber, int pID, int ds, int index, unsigned int ttl, int printsetup, node_t * cabeza){
     struct timeval tval_now;
     unsigned char trama_rcv[100];
     setIPHeader(trama_icmp, protocolNumber, sourceIPAddr, targetIPAddr, sqNumber, ttl);
@@ -432,7 +433,7 @@ int ICMP(unsigned char *trama_icmp, int trama_len, int protocolNumber, unsigned 
     int flag = 0;
     if(printsetup==1)
         printf(" %d  ", ttl);
-    flag = rcvICMP(trama_rcv, trama_len,  pID,  sqNumber,  ds, index, printsetup, ttl, &tval_now); 
+    flag = rcvICMP(trama_rcv, trama_len,  pID,  sqNumber,  ds, index, printsetup, ttl, &tval_now, cabeza); 
     if(flag==1)
         return 1;
     else if(flag==2)
@@ -442,7 +443,7 @@ int ICMP(unsigned char *trama_icmp, int trama_len, int protocolNumber, unsigned 
 
 }
 
-int rcvICMP(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqNumber, int ds, int index, int printsetup, unsigned int ttl, struct timeval *tval_now){
+int rcvICMP(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqNumber, int ds, int index, int printsetup, unsigned int ttl, struct timeval *tval_now, node_t * cabeza){
     struct timeval start, end;
     int tam_rcv_from, bandera=0;
     long mtime =0, seconds, useconds;
@@ -450,7 +451,7 @@ int rcvICMP(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqN
     while(mtime<300){
         tam_rcv_from=recibeTrama(ds, trama_rcv, trama_len);
         int flag = 0;
-        flag = filterICMPreply(trama_rcv, pID, sqNumber, tam_rcv_from, printsetup, ttl, tval_now);
+        flag = filterICMPreply(trama_rcv, pID, sqNumber, tam_rcv_from, printsetup, ttl, tval_now, cabeza);
         if(flag == 1 || flag == 2){
             bandera = 1;
         }
@@ -473,7 +474,7 @@ int rcvICMP(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqN
     }
 }
 
-int filterICMPreply(unsigned char *trama, int pID, unsigned short seqNumber, int tam_rcv_from, int printsetup, unsigned int ttl, struct timeval *tval_now){
+int filterICMPreply(unsigned char *trama, int pID, unsigned short seqNumber, int tam_rcv_from, int printsetup, unsigned int ttl, struct timeval *tval_now, node_t * cabeza){
     struct timeval tval_after, tval_result;
     unsigned char identifier[2];
     unsigned char temp[1];
@@ -491,31 +492,25 @@ int filterICMPreply(unsigned char *trama, int pID, unsigned short seqNumber, int
     if(!memcmp (trama + 12, ETHTYPE_ICMP, 2) && !memcmp (trama + 38, identifier, 2) && !memcmp (trama + 41, sqnum, 1)){//Respuesta desde host
         gettimeofday(&tval_after, NULL);
         timersub(&tval_after, tval_now, &tval_result);
+        unsigned char tempdirIP[4];
+        memcpy(tempdirIP, trama+26, 4);
+        push(cabeza, tempdirIP, ttl);
         float timeres = (long int)tval_result.tv_usec/1000.0;
-        if(printsetup==1){
-            char ipstring[17];
-            sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
-            printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
-        }
-        if(printsetup==2)
-            printf("   %.3f ms", timeres);
-        if(printsetup == 3)
-            printf("   %.3f ms", timeres);
+        char ipstring[17];
+        sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
+        printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
         return 1;
     }
     else if(!memcmp (trama + 12, ETHTYPE_ICMP, 2) && !memcmp(trama+34, "\x0b\x00", 2) && !memcmp (trama + 66, identifier, 2) && !memcmp (trama + 69, sqnum, 1)){//Respuesta desde hop
         gettimeofday(&tval_after, NULL);
         timersub(&tval_after, tval_now, &tval_result);
+        unsigned char tempdirIP[4];
+        memcpy(tempdirIP, trama+26, 4);
+        push(cabeza, tempdirIP, ttl); 
         float timeres = (long int)tval_result.tv_usec/1000.0;
-        if(printsetup==1){
-            char ipstring[17];
-            sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
-            printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
-        }
-        if(printsetup==2)
-            printf("   %.3f ms", timeres);
-        if(printsetup == 3)
-            printf("   %.3f ms", timeres);
+        char ipstring[17];
+        sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
+        printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
         return 2;
         }
     return -1;
@@ -569,3 +564,72 @@ void imprimeTrama (unsigned char *trama, int tramalen)
     }
   printf ("\n");
 }     
+
+
+
+int PING(unsigned char *trama_icmp, int trama_len, int protocolNumber, unsigned char * sourceIPAddr, unsigned char * targetIPAddr, int sqNumber, int pID, int ds, int index, unsigned int ttl){
+    struct timeval tval_now;
+    unsigned char trama_rcv[100];
+    setIPHeader(trama_icmp, protocolNumber, sourceIPAddr, targetIPAddr, sqNumber, ttl);
+    setICMPHeader(trama_icmp, sqNumber, pID);
+    gettimeofday(&tval_now, NULL);
+    enviarTrama (trama_icmp, trama_len, ds, index);
+    if(rcvPING(trama_rcv, trama_len, pID,  sqNumber, ds, index, &tval_now))
+        return 1;
+    else
+        return 0;
+
+}
+
+int rcvPING(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqNumber, int ds, int index, struct timeval *tval_now){
+    struct timeval start, end;
+    int tam_rcv_from, bandera=0;
+    long mtime =0, seconds, useconds;
+    gettimeofday(&start, NULL);
+    while(mtime<100){
+        tam_rcv_from=recibeTrama(ds, trama_rcv, trama_len);
+        if(filterPINGreply(trama_rcv, pID, sqNumber, tam_rcv_from, tval_now)==1){
+            bandera = 1;
+        }
+        gettimeofday(&end, NULL);
+        seconds = end.tv_sec - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        mtime = ((seconds)*1000 + useconds/1000.0) + 0.5;
+        if(bandera==1){
+            return 1;
+            break;
+        }
+    }
+    if (bandera == 0){
+      //perror ("Sin respuesta");
+      return 0;
+    }
+}
+
+int filterPINGreply(unsigned char *trama, int pID, unsigned short seqNumber, int tam_rcv_from, struct timeval *tval_now){
+    struct timeval tval_after, tval_result;
+    char ipstring[17];
+    unsigned char identifier[2];
+    unsigned char temp[1];
+    unsigned char * ptr, *ptr1;
+    ptr =(char *) &pID;
+    ptr1=ptr;
+    for(&ptr; *ptr; ptr++){
+        identifier[(int)(ptr-ptr1)] = *ptr;
+    }
+    unsigned char sqnum[1];
+    sqnum[0]= (unsigned char) seqNumber;
+    temp[0]=identifier[0];
+    identifier[0]=identifier[1];
+    identifier[1]=temp[0];
+    if(!memcmp (trama + 12, ETHTYPE_ICMP, 2) && !memcmp (trama + 38, identifier, 2) && !memcmp (trama + 41, sqnum, 1)){
+        sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
+        gettimeofday(&tval_after, NULL);
+        timersub(&tval_after, tval_now, &tval_result);
+        float timeres = (long int)tval_result.tv_usec/1000.0;
+        //printf("(%d) bytes de %s (%d.%d.%d.%d): icmp_seq=%d ttl=%d time=%.2f ms", tam_rcv_from-34, getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], sqnum[0], trama[22], timeres);
+        //imprimeTrama(trama, trama_rcv_from_len);
+        return 1;
+    }
+    return -1;
+}

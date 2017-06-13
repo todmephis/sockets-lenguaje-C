@@ -23,6 +23,7 @@
 #define ICMP_PROT 1
 #define PINGTOTLEN 60
 #define BUFFER_SIZE 4096
+#include <lista.h>
 
                         /*PROTOTIPOS*/
 void usage (char **);
@@ -43,10 +44,14 @@ void cpyHwAddrFromTrama(unsigned char *, unsigned char *);
 void ARP(unsigned char *, unsigned char *, unsigned char *, unsigned char *, int *);
 int sendARP(unsigned char *, unsigned char *, unsigned char *, unsigned char *, int, int *, int);
 void rcvARP(unsigned char *, unsigned char *, unsigned char *, int, int *, int, unsigned char *);
-int ICMP(unsigned char *, int, int, unsigned char *, unsigned char *, int, int, int, int, unsigned int, int);
-int rcvICMP(unsigned char *, int, int, unsigned short, int, int, int, unsigned int, struct timeval *);
-int filterICMPreply(unsigned char *, int, unsigned short, int, int, unsigned int, struct timeval *);
+int ICMP(unsigned char *, int, int, unsigned char *, unsigned char *, int, int, int, int, unsigned int, int, node_t *);
+int rcvICMP(unsigned char *, int, int, unsigned short, int, int, int, unsigned int, struct timeval *, node_t *);
+int filterICMPreply(unsigned char *, int, unsigned short, int, int, unsigned int, struct timeval *, node_t *);
 void enviarTrama (unsigned char *, int, int, int);
 int recibeTrama(int, unsigned char *, int);
 int filterARPreply(unsigned char *, int, unsigned char *, unsigned char *, int);
 void imprimeTrama (unsigned char *, int);
+
+int PING(unsigned char *, int, int, unsigned char *, unsigned char *, int, int, int, int, unsigned int);
+int rcvPING(unsigned char *, int, int, unsigned short, int, int, struct timeval *);
+int filterPINGreply(unsigned char *, int, unsigned short, int, struct timeval *);

@@ -7,6 +7,7 @@ int main(int argc , char **argv)
     }
     if(argc != 2)
         usage(argv);
+    node_t * cabeza = NULL;
     char *hostname = argv[1];
     char ipstring_dest[17], InterfazName[10];
     unsigned char ownMAC[6], ownIP[4], ownNetMask[4];
@@ -15,6 +16,11 @@ int main(int argc , char **argv)
     struct ifreq Interfaz;
     unsigned char trama_icmp[74];
     int icmpdatabytes = sizeof(trama_icmp)-14;
+    cabeza = malloc(sizeof(node_t));
+    if(cabeza == NULL){
+        perror("Error reservando memoria");
+        exit(EXIT_FAILURE);
+        }
     if(hostnameToIP(hostname, ipstring_dest)== -1)
     {
         printf("Error: Dirección Inválida...\n");
@@ -43,22 +49,38 @@ int main(int argc , char **argv)
     pID=getpid()*2;
     int sec = 0 ;
     unsigned int ttl=1;
-    int flag = 0, printsetup=1;
+    int flag = 0;
     for(sec=1; ttl<=MAXHOP; sec++){
-        flag = ICMP(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, IP_dest, sec, pID, ds, ifindex, ttl, printsetup);
+        flag = ICMP(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, IP_dest, sec, pID, ds, ifindex, ttl, 1, cabeza);
         if(flag == 1){
-            ICMP(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, IP_dest, sec+1, pID, ds, ifindex, ttl, printsetup+1);
-            ICMP(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, IP_dest, sec+2, pID, ds, ifindex, ttl, printsetup+2);
             printf("\n");
             break;
         }
-        if((sec)%3==0){
-            ttl++;
-            printf("\n");
+        ttl++;
+        printf("\n");
+    }
+    pop(&cabeza);
+    //print_list(cabeza);
+    node_t * actual = cabeza;
+    int succesPacket1, succesPacket2, x = 0;
+    unsigned int ttlsistema = getTTL();
+    printf("\n   \t    TTL Justa   \t       TTL %d\n", ttlsistema);
+    printf("HOP \tPerdidos/Enviados \t  Perdidos/Enviados \t Dirección\n");
+    while(actual != NULL){
+        succesPacket1 = 0;
+        succesPacket2 = 0;
+        for(x = 1; x<=100; x++){
+            if(PING(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, actual->IPlist, x, pID, ds, ifindex, actual->TTLlist)){
+                succesPacket1++;
+            }
         }
-        printsetup++;
-        if(printsetup==4)
-            printsetup=1;
+       for(x = 1; x<=100; x++){
+            if(PING(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, actual->IPlist, x, pID, ds, ifindex, ttlsistema)){
+                succesPacket2++;
+            }
+        }
+    printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%.d.%.d\n",actual->TTLlist, 100-succesPacket1, x-1, 100-succesPacket2, x-1, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
+    actual = actual->siguiente;
     }
 
     close(ds);
