@@ -586,7 +586,7 @@ int rcvPING(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqN
     int tam_rcv_from, bandera=0;
     long mtime =0, seconds, useconds;
     gettimeofday(&start, NULL);
-    while(mtime<100){
+    while(mtime<200){
         tam_rcv_from=recibeTrama(ds, trama_rcv, trama_len);
         if(filterPINGreply(trama_rcv, pID, sqNumber, tam_rcv_from, tval_now)==1){
             bandera = 1;

@@ -60,13 +60,45 @@ int main(int argc , char **argv)
         printf("\n");
     }
     pop(&cabeza);
+    //printf("\n");
     //print_list(cabeza);
-    node_t * actual = cabeza;
-    int succesPacket1, succesPacket2, x = 0;
+    printf("\nProcesando datos");
+    sleep(1);
+    int x = 0;
     unsigned int ttlsistema = getTTL();
+    for(x=1; x<=100; x++){
+        node_t * actual = cabeza;
+        while(actual!=NULL){
+            if(PING(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, actual->IPlist, x, pID, ds, ifindex, actual->TTLlist)){
+                actual->contestados_ttl_c=actual->contestados_ttl_c+1;
+            }
+        actual = actual->siguiente;
+        }
+    }
+    //printf("\n");
+    //print_list(cabeza);
+    //printf("\n");
+    for(x=1; x<=100; x++){
+        node_t * actual = cabeza;
+        while(actual!=NULL){
+            if(PING(trama_icmp, (int)sizeof(trama_icmp), ICMP_PROT, ownIP, actual->IPlist, x, pID, ds, ifindex, ttlsistema)){
+                actual->contestados_ttl_system=actual->contestados_ttl_system+1;
+            }
+        actual = actual->siguiente;
+        }
+    }
+    //printf("\n");
+    //print_list(cabeza);
+    printf("\n");
     printf("\n   \t    TTL Justa   \t       TTL %d\n", ttlsistema);
     printf("HOP \tPerdidos/Enviados \t  Perdidos/Enviados \t Dirección\n");
-    while(actual != NULL){
+    node_t * actual = cabeza;
+    while(actual !=NULL){
+        sleep(1);
+        printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%d.%d\n",actual->TTLlist, 100-(actual->contestados_ttl_c), x-1, 100-(actual->contestados_ttl_system), x-1, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
+        actual = actual->siguiente;
+    }
+    /*while(actual != NULL){
         succesPacket1 = 0;
         succesPacket2 = 0;
         for(x = 1; x<=100; x++){
@@ -81,7 +113,7 @@ int main(int argc , char **argv)
         }
     printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%.d.%.d\n",actual->TTLlist, 100-succesPacket1, x-1, 100-succesPacket2, x-1, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
     actual = actual->siguiente;
-    }
+    }*/
 
     close(ds);
     return 0;   
