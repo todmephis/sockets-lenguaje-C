@@ -13,25 +13,9 @@
 #define TRAMA_LEN 60
 
 					/*PROTOTIPOS*/
-
-//VALOR DE RETORNO: int >> descriptor del socket abierto
 int abrirSocketRaw(void);
-
-/* int >> Descriptor del socket abierto.
-struct ifreq * >> Apuntador de la estructura ifreq para obtener los datos de la interfaz de red.
-unisgned char * >> Apuntador para almacenar la dirección MAC de mi interfaz de red.
-unisgned char * >> Apuntador para almacenar la dirección lógica de mi interfaz de red.
-unsigned char * >> Apuntador para almacenar la dirección de broadcast.
-unsigned char * >> Apuntador para almacenar la máscara de red.
-VALOR DE RETORNO: int >> Índice de mi interfaz de red (usado posteriormente...). */
 int obtenerDatos(int, struct ifreq *, unsigned char *, unsigned char *, unsigned char *, unsigned char *);
-
-/* unisigned char * >> Apuntador a la trama a imprimir.
-int >> tamaño de la trama a imprimir. */
 void imprimeTrama (unsigned char *, int);
-
-/*int >> Descriptor del socket abierto.
-unsigned char * >> Apuntador para almacenar la trama que recibimos.*/
 void recibeTrama(int, unsigned char *);
 
 					/*FUNCIONES*/
@@ -94,8 +78,8 @@ if (ioctl (ds, SIOCGIFBRDADDR, ptrInterfaz) == -1)
 else
     {
      memcpy (ownBroadcast, ptrInterfaz->ifr_broadaddr.sa_data + 2, 4);
-     printf ("Dirección de broadcast >> ");
-     fprintf(stdout, "%d.%d.%d.%d\n", ownBroadcast[0], ownBroadcast[1], ownBroadcast[2], ownBroadcast[3]);
+     //printf ("Dirección de broadcast >> ");
+     //fprintf(stdout, "%d.%d.%d.%d\n", ownBroadcast[0], ownBroadcast[1], ownBroadcast[2], ownBroadcast[3]);
     }
 if (ioctl (ds, SIOCGIFNETMASK, ptrInterfaz) == -1)
     {
@@ -105,8 +89,8 @@ if (ioctl (ds, SIOCGIFNETMASK, ptrInterfaz) == -1)
 else
     {
       memcpy (ownNetMask, ptrInterfaz->ifr_netmask.sa_data + 2, 4);
-      printf ("Máscara de subred >> ");
-      fprintf(stdout, "%d.%d.%d.%d", ownNetMask[0], ownNetMask[1], ownNetMask[2], ownNetMask[3]);
+      //printf ("Máscara de subred >> ");
+      //fprintf(stdout, "%d.%d.%d.%d", ownNetMask[0], ownNetMask[1], ownNetMask[2], ownNetMask[3]);
     }
   printf ("\n");  
 
@@ -129,10 +113,8 @@ imprimeTrama (unsigned char *trama, int tramalen)
 
 void recibeTrama(int ds, unsigned char * trama){
 int tam=0;
-int lenght=0;
-//unsigned char ethtype[2]={0xae,0xae};//Ethertype personalizado para identificar el paquete
+int lenght=0, type=-1;
 while(1){
-
 	tam=recvfrom(ds, trama, 1514, 0, NULL, 0);
  	lenght = trama[13] | trama[12] << 8;
 	if(tam == -1)
@@ -143,10 +125,21 @@ while(1){
       fprintf(stdout, "\nMAC Destino: %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\t", trama[0], trama[1], trama[2], trama[3], trama[4], trama[5]);
       fprintf(stdout, "MAC Origen: %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n", trama[6], trama[7], trama[8], trama[9], trama[10], trama[11]);
       printf("Longitud: %d\n", lenght);
+      printf("DSAP: %x\n", trama[14]);
+      printf("SSAP: %x\n", trama[15]);
+      printf("Control Field: %x Tipo: ", trama[16]);
+      type=trama[16]&3;
+      if(type == 0){
+        printf("Información\n");
+      }
+      else if(type == 1){
+        printf("Supervisión\n");
+      }
+      else if(type == 3){
+        printf("No Numerada\n");
+      }
 		}	
-
 }
-
 }
 
 int main (void){
@@ -156,12 +149,10 @@ struct ifreq Interfaz;
 struct ifreq * ptrInterfaz;
 ptrInterfaz = &Interfaz;
 unsigned char trama_recibir[1514];
-
 ds=abrirSocketRaw();
 indice=obtenerDatos(ds, ptrInterfaz, ownMAC, ownIP, ownBroadcast, ownNetMask);
 recibeTrama(ds, trama_recibir);	
 close (ds);
-
 return 0;
 
 }
