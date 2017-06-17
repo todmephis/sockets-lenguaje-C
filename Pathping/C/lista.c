@@ -50,3 +50,17 @@ void chingateLaLista(node_t **head){
 	}
 	*head=NULL;
 }
+void imprimeResultados(node_t * lista){
+	node_t * actual = lista;
+    while(actual !=NULL){
+        sleep(1);
+        printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%d.%d\n",actual->TTLlist, 100-(actual->contestados_ttl_c), 100, 100-(actual->contestados_ttl_system), 100, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
+        actual = actual->siguiente;
+    }
+}
+
+int cuentaNodos(node_t *temp){
+ if(temp == NULL)
+     return(0);
+ return(1 + cuentaNodos(temp->siguiente));
+}

@@ -1,4 +1,4 @@
-#include <traceroute.h>
+#include <pathping.h>
 
 /*FUNCIONES*/
 void usage (char ** arguments){

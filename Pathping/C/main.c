@@ -1,4 +1,4 @@
-#include <traceroute.h>
+#include <pathping.h>
 int main(int argc , char **argv)
 {
     if(geteuid()!=0){
@@ -60,9 +60,11 @@ int main(int argc , char **argv)
         printf("\n");
     }
     pop(&cabeza);
+    node_t * actual = cabeza;
+    int nodostotales = cuentaNodos(cabeza);
     //printf("\n");
     //print_list(cabeza);
-    printf("\nComputando datos; envío de %d paquetes\n", ttl*100);
+    printf("\nComputando datos; envío de %d paquetes\n", nodostotales*100*2);
     unsigned int seq=1;
     int x = 0;
     unsigned int ttlsistema = getTTL();
@@ -96,12 +98,8 @@ int main(int argc , char **argv)
     printf("\n");
     printf("\n   \t    TTL Justa   \t       TTL %d\n", ttlsistema);
     printf("HOP \tPerdidos/Enviados \t  Perdidos/Enviados \t Dirección\n\n");
-    node_t * actual = cabeza;
-    while(actual !=NULL){
-        sleep(1);
-        printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%d.%d\n",actual->TTLlist, 100-(actual->contestados_ttl_c), x-1, 100-(actual->contestados_ttl_system), x-1, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
-        actual = actual->siguiente;
-    }
+    actual = cabeza;
+    imprimeResultados(actual);
     actual=cabeza;
     chingateLaLista(&actual);
     close(ds);
