@@ -102,7 +102,8 @@ int main(int argc , char **argv)
         printf("%d \t    %d/%d\t\t\t%d/%d\t\t %d.%d.%d.%d\n",actual->TTLlist, 100-(actual->contestados_ttl_c), x-1, 100-(actual->contestados_ttl_system), x-1, actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
         actual = actual->siguiente;
     }
-
+    actual=cabeza;
+    chingateLaLista(&actual);
     close(ds);
     return 0;   
 }

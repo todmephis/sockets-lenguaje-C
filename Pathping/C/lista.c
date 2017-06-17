@@ -39,3 +39,14 @@ int pop(node_t ** head) {
 
     return retval;
 }
+
+void chingateLaLista(node_t **head){
+	node_t * actual = *head;
+	node_t * next_node;
+	while(actual != NULL){
+		next_node = actual->siguiente;
+		free(actual);
+		actual=next_node;
+	}
+	*head=NULL;
+}

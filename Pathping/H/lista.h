@@ -12,3 +12,4 @@ typedef struct node {
 void push (node_t *, unsigned char *, unsigned int);
 void print_list(node_t *);
 int pop(node_t **);
+void chingateLaLista(node_t **);
