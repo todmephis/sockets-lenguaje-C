@@ -309,7 +309,8 @@ void setIPHeader(unsigned char * trama, unsigned int protocol, unsigned char * s
     memset(trama+24, checkSum[1], 1);
     memset(trama+25, checkSum[0], 1);
 }
-void setICMPHeader(unsigned char * trama, unsigned short seqNumber, int ID){
+void setICMPHeader(unsigned char * trama, unsigned int seqNumber, int ID){
+    seqNumber = htons(seqNumber);
     unsigned char identifier[2];
     unsigned char checkSum[2];
     unsigned char data[32]={"IVAN :v IVAN :v IVAN :v IVAN :v "};//payload
@@ -324,7 +325,7 @@ void setICMPHeader(unsigned char * trama, unsigned short seqNumber, int ID){
     memset(trama+36, 0, 2);//SET CHECKSUM 0
     memset(trama+38, identifier[1], 1);//Identificador
     memset(trama+39, identifier[0], 1);//Identificador
-    memset(trama+41, seqNumber, 1);//Sequence Number
+    memcpy(trama+40, (char *) &seqNumber, 2);//Sequence Number
     //memset(trama+42, TMESTAMP FIELD, 8); //TO DO: SET TIMESTAMP :'V
     memcpy(trama+42, data, sizeof(data));
     //SET CHECKSUM
@@ -586,7 +587,7 @@ int rcvPING(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqN
     int tam_rcv_from, bandera=0;
     long mtime =0, seconds, useconds;
     gettimeofday(&start, NULL);
-    while(mtime<200){
+    while(mtime<400){
         tam_rcv_from=recibeTrama(ds, trama_rcv, trama_len);
         if(filterPINGreply(trama_rcv, pID, sqNumber, tam_rcv_from, tval_now)==1){
             bandera = 1;

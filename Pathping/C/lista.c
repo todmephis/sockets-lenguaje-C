@@ -18,7 +18,7 @@ void print_list(node_t * lista){
 	while(actual != NULL){
 		printf("IP >> %d.%d.%d.%d ", actual->IPlist[0], actual->IPlist[1], actual->IPlist[2], actual->IPlist[3]);
 		printf("TTL >> %d ", actual->TTLlist);
-		printf("Contestados >> %d Contestados TTl sistema >> %d\n", actual->contestados_ttl_c, actual->contestados_ttl_system);
+		printf("Contestados >> %d Contestados TTl sistema >> %d\n\n", actual->contestados_ttl_c, actual->contestados_ttl_system);
 		actual = actual->siguiente;
 	}
 
