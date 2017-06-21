@@ -499,7 +499,7 @@ int filterICMPreply(unsigned char *trama, int pID, unsigned short seqNumber, int
         float timeres = (long int)tval_result.tv_usec/1000.0;
         char ipstring[17];
         sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
-        printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
+        printf("%s (%d.%d.%d.%d)  ", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29]);
         return 1;
     }
     else if(!memcmp (trama + 12, ETHTYPE_ICMP, 2) && !memcmp(trama+34, "\x0b\x00", 2) && !memcmp (trama + 66, identifier, 2) && !memcmp (trama + 69, sqnum, 1)){//Respuesta desde hop
@@ -511,7 +511,7 @@ int filterICMPreply(unsigned char *trama, int pID, unsigned short seqNumber, int
         float timeres = (long int)tval_result.tv_usec/1000.0;
         char ipstring[17];
         sprintf(ipstring, "%d.%d.%d.%d", trama[26], trama[27], trama[28], trama[29]);
-        printf("%s (%d.%d.%d.%d)   %.3f ms", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29], timeres);
+        printf("%s (%d.%d.%d.%d)   ", getHostnamefromIP(ipstring), trama[26], trama[27], trama[28], trama[29]);
         return 2;
         }
     return -1;
@@ -587,7 +587,7 @@ int rcvPING(unsigned char *trama_rcv, int trama_len, int pID, unsigned short sqN
     int tam_rcv_from, bandera=0;
     long mtime =0, seconds, useconds;
     gettimeofday(&start, NULL);
-    while(mtime<400){
+    while(mtime<500){
         tam_rcv_from=recibeTrama(ds, trama_rcv, trama_len);
         if(filterPINGreply(trama_rcv, pID, sqNumber, tam_rcv_from, tval_now)==1){
             bandera = 1;

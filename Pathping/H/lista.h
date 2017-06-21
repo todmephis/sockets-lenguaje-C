@@ -8,6 +8,8 @@ typedef struct node {
     unsigned int TTLlist;
     unsigned int contestados_ttl_c;
     unsigned int contestados_ttl_system;
+    float tiempo_ttl_c;
+    float tiempo_ttl_system;
     struct node * siguiente;
 } node_t;
 void push (node_t *, unsigned char *, unsigned int);
